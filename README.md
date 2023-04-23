@@ -103,8 +103,8 @@ The obtained data (many JSON files with nested fields) is flattened with MongoDB
 
 | Raw Data | Data Flattened  |
 | -------- | --------------- |
-| <pre lang="json">"headline": {<br>    "main": "String"<br>    "print_headline": "String"<br>}</pre>|<pre lang="json">"headline_main" : "String"<br>"headline_print_headline" : "String"</pre>|
-| <pre lang="json">"byline": {<br>    "original": "String"<br>    "organization": "String"<br>}</pre>|<pre lang="json">"byline_original" : "String"<br>"byline_organization" : "String"</pre>|
+| <pre lang="text">"headline": {<br>    "main": "String"<br>    "print_headline": "String"<br>}</pre>|<pre lang="text">"headline_main" : "String"<br>"headline_print_headline" : "String"</pre>|
+| <pre lang="text">"byline": {<br>    "original": "String"<br>    "organization": "String"<br>}</pre>|<pre lang="text">"byline_original" : "String"<br>"byline_organization" : "String"</pre>|
 
 
 
