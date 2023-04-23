@@ -488,15 +488,13 @@ Follw these instructions
 ► This is a demo video where these previous instructions were executed.  
 Take a look for guidance.
 
-[![Test Pipeline Demo Video]
-(https://img.youtube.com/vi/4VtdaUIie7s/maxresdefault.jpg)]
-(https://www.youtube.com/watch?v=4VtdaUIie7s)
-
-[![Test Pipeline Demo Video]
-(https://img.youtube.com/vi/4VtdaUIie7s/hqdefault.jpg)]
-(https://www.youtube.com/watch?v=4VtdaUIie7s)
 
 
+[![Test Pipeline Demo Video](./images/test_author_consistency_video_button.jpg)](https://www.youtube.com/watch?v=4VtdaUIie7s "Test Pipeline Demo Video")
+
+***
+
+https://img.youtube.com/vi/4VtdaUIie7s/0.jpg
 {% include youtube.html id="4VtdaUIie7s" %}
 
 ****
