@@ -1,0 +1,92 @@
+version: '3.7'
+
+networks:
+
+   # Create the network
+   service-net:
+     ipam:
+       config:
+         - subnet: 172.25.0.0/16
+
+
+
+services:
+
+   # Extract: Request the NYT API
+   extract.a:
+     build:
+       context: ${PWD}
+       dockerfile: A.extract.Dockerfile
+     container_name: a.extract.json
+     volumes:
+       - ${PWD}/input_data:/input_data
+     networks:
+       service-net:
+          ipv4_address: 172.25.0.6
+
+   # MongoDB Instance
+   mongodb.b:
+     build:
+        context: ${PWD}
+        dockerfile: B.convert.Dockerfile
+     container_name: b.mongodb
+     environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=1234
+     networks:
+       service-net:
+          ipv4_address: 172.25.0.9
+     ports:
+        - 27017:27017
+     depends_on:
+        extract.a:
+           condition: service_completed_successfully
+
+   # Convert: Convert JSON files into one CSV using MongoDB Instance
+   mongo_convert.b:
+     build:
+        context: ${PWD}
+        dockerfile: B.convert.Dockerfile
+     container_name: b.convert.csv
+     volumes:
+        - $PWD/input_data:/input_data
+        - $PWD/output_data:/output_data
+     networks:
+       service-net:
+          ipv4_address: 172.25.0.12
+     depends_on:
+        - mongodb.b
+     command: /etl/convert_data.py
+
+   # Create DB: Crate the SQLite DB
+   create-db.c:
+     build:
+        context: ${PWD}
+        dockerfile: C.db-create.Dockerfile
+     container_name: c.db-create
+     volumes:
+        - $PWD/output_data:/output_data
+     networks:
+       service-net:
+          ipv4_address: 172.25.0.15
+     depends_on:
+        mongo_convert.b:
+           condition: service_completed_successfully
+
+   # Launch API
+   api.d:
+     build:
+        context: ${PWD}
+        dockerfile: D.api.Dockerfile
+     container_name: d.api
+     volumes:
+        - $PWD/output_data:/output_data
+     networks:
+       service-net:
+          ipv4_address: 172.25.0.18
+     ports:
+        - 8000:8000
+     depends_on:
+        create-db.c:
+           condition: service_completed_successfully
+     command: uvicorn main:app --host 0.0.0.0
