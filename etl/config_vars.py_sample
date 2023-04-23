@@ -1,9 +1,6 @@
 # Your New York Times API key
 NYT_API_KEY="YOUR_NEW_YORK_TIMES_ARCHIVE_API_KEY"
 
-INPUT_DATA_DIR="input_data"
-OUTPUT_DATA_DIR="output_data"
-
 # Years to extract from
 # from start to end year
 START_YEAR=2021
@@ -13,6 +10,12 @@ END_YEAR=2022
 # from start month to end month
 START_MONTH=1
 END_MONTH=1
+
+
+# =============
+# Not need to change the next varialbles.
+INPUT_DATA_DIR="input_data"
+OUTPUT_DATA_DIR="output_data"
 
 # MongoDB
 MONGODB_URL='mongodb://root:1234@172.25.0.9:27017/'
