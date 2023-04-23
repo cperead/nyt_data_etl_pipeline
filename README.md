@@ -103,32 +103,32 @@ The obtained data (many JSON files with nested fields) is flattened with MongoDB
 
 | Raw Data | Data Flattened  |
 | -------- | --------------- |
-| <pre lang="json">"headline": {<br>    "main": String<br>    "print_headline": String<br>}</pre>|<pre lang="json">"headline_main" : String<br>"headline_print_headline" : String</pre>|
-| <pre lang="json">"byline": {<br>    "original": String<br>    "organization": String<br>}</pre>|<pre lang="json">"byline_original" : String<br>"byline_organization" : String</pre>|
+| <pre lang="json">"headline": {<br>    "main": "String"<br>    "print_headline": "String"<br>}</pre>|<pre lang="json">"headline_main" : "String"<br>"headline_print_headline" : "String"</pre>|
+| <pre lang="json">"byline": {<br>    "original": "String"<br>    "organization": "String"<br>}</pre>|<pre lang="json">"byline_original" : "String"<br>"byline_organization" : "String"</pre>|
 
 
 
 ### Flattened Data Structure
 ```json
 {
-	"_id": ObjectId
-	"abstract" : String
-	"web_url" : String
-	"snippet" : String
-	"lead_paragraph" : String
-	"print_section" : String
-	"print_page" : Integer
-	"a_source" : String
-	"headline_main" : String
-	"headline_print_headline" : String
-	"pub_date" : Date/time string
-	"document_type" : String
-	"news_desk" : String
-	"section_name" : String
-	"byline_original" : String
-	"byline_organization" : String
-	"type_of_material" : String
-	"word_count" : Integer                
+	"_id": "ObjectId"
+	"abstract" : "String"
+	"web_url" : "String"
+	"snippet" : "String"
+	"lead_paragraph" : "String"
+	"print_section" : "String"
+	"print_page" : "Integer"
+	"a_source" : "String"
+	"headline_main" : "String"
+	"headline_print_headline" : "String"
+	"pub_date" : "Date/time string"
+	"document_type" : "String"
+	"news_desk" : "String"
+	"section_name" : "String"
+	"byline_original" : "String"
+	"byline_organization" : "String"
+	"type_of_material" : "String"
+	"word_count" : "Integer"                
 }
 ```
 
