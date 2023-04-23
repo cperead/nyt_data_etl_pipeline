@@ -69,31 +69,31 @@ The following fields are for every article.
 ### Raw Data
 ```json
 {
-    "abstract": String
-    "web_url": String
-    "snippet": String
-    "lead_paragraph": String
-    "print_section": String
-    "print_page": Integer
-    "source": String
-    "multimedia": Array of multimedia objects (*ignored)
+    "abstract": "String"
+    "web_url": "String"
+    "snippet": "String"
+    "lead_paragraph": "String"
+    "print_section": "String"
+    "print_page": "Integer"
+    "source": "String"
+    "multimedia": "Array of multimedia objects (*ignored)"
     "headline": {
-        "main": String
-        "print_headline": String
+        "main": "String"
+        "print_headline": "String"
     },
-    "keywords": Array of keyword objects (*ignored)
-    "pub_date": Date/time string
-    "document_type": String
-    "news_desk":  String
-    "section_name": String
+    "keywords": "Array of keyword objects (*ignored)"
+    "pub_date": "Date/time string"
+    "document_type": "String"
+    "news_desk":  "String"
+    "section_name": "String"
     "byline": {
-        "original": String
-        "organization": String
+        "original": "String"
+        "organization": "String"
     },
-    "type_of_material": String
-    "_id": ObjectId
-    "word_count": Integer
-    "uri": String
+    "type_of_material": "String"
+    "_id": "ObjectId"
+    "word_count": "Integer"
+    "uri": "String"
 }
 ```
 
@@ -467,7 +467,7 @@ For this reason, all the endpoints are concentrated on querying the author and i
 
 ## Test the **Data Consistency** of the Authors in the Database <br> (Querying or Inserting )
 
-Follw these instructions
+### Follw these instructions
 
 | Step | Tool | ToDo |
 |------|-------|------- |
@@ -485,17 +485,12 @@ Follw these instructions
 |12.| Browser| In the endpoint `test_inserted` check if the author "Max Mustermann" exists with the dummy info entered |
 |13.| SQLite DB Viewer| Check if the inserted author "Max Mustermann" exists in the `article` and `author` tables, normally at the end. |
 
-► This is a demo video where these previous instructions were executed.  
+
+### This is a Demo Video where these previous instructions were executed.  
 Take a look for guidance.
-
-
 
 [![Test Pipeline Demo Video](./images/test_author_consistency_video_button.jpg)](https://www.youtube.com/watch?v=4VtdaUIie7s "Test Pipeline Demo Video")
 
-***
-
-https://img.youtube.com/vi/4VtdaUIie7s/0.jpg
-{% include youtube.html id="4VtdaUIie7s" %}
 
 ****
 
@@ -508,7 +503,8 @@ https://img.youtube.com/vi/4VtdaUIie7s/0.jpg
 > * ***5 requests per minute***.    
 > *You should sleep 12 seconds between calls to avoid hitting the per minute rate limit. https://developer.nytimes.com/faq*
 
-In case you exceed this limit, the JSON files you get are without relevant information, but with the error message.
+In case you exceed this limit, you get JSON files without relevant information, but with the error message.
 
-2. This project is till ongoing. 
+
+2. This project is till ongoing.  :wink:
 
