@@ -1,15 +1,15 @@
-# NYTDataPipeline: <br> Building a Data Pipeline for Extracting, Transforming, and Loading New York Times Data
+# NYT Data Pipeline: <br> Building a Data Pipeline for Extracting, Transforming, and Loading New York Times Data
 
 
 ---
 ## Introduction
-The 'NYTDataPipeline' is a comprehensive Data Engineering project that aims to create an automated data pipeline for extracting, transforming, and loading data from the New York Times Archive into a normalized relational database.  
+The 'NYT Data Pipeline' is a comprehensive Data Engineering project that aims to create an automated data pipeline for extracting, transforming, and loading data from the New York Times Archive into a normalized relational database.  
 Using Docker and Docker-Compose, all stages of the pipeline are containerized and orchestrated for ease of use.  
 The ultimate goal of the project is to build a scalable API with five query-endpoints that provide users, like Data Scientist or Data Analyst, quick access to the normalized database, particularly the author's information, by querying the SQLite database.
 
 ---
 # ETL Pipeline Overview
-The "NYTDataPipeline" is a **Data Engineering** project that involves building a data **pipeline** for **extracting**, **transforming**, and **loading** New York Times Archive data.   
+The "NYT Data Pipeline" is a **Data Engineering** project that involves building a data **pipeline** for **extracting**, **transforming**, and **loading** New York Times Archive data.   
 The project includes several steps:
 * *Requesting* the New York Times Archive API using a **Bash** Shell Script to download JSON files on a monthly basis. 
 * The downloaded JSON files are then *converted* and *flattened* to a single CSV file using **MongoDB**. 
