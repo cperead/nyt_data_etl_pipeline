@@ -167,6 +167,7 @@ To do the normalization a "composite-table" `article_author`  was created, and a
 </kbd>
 
 <br>
+<br>
 
 ## 4. Data Consumption - FastAPI
 At this moment, the API consists of 5 api-endpoints that are used to "check" the normalization of the author's data in the database.
