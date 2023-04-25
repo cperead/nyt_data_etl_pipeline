@@ -178,7 +178,7 @@ For this reason, all the endpoints are concentrated on querying the author and i
   <img src="images/fastapi_endpoints.png">
 </kbd>
 
-<br>
+<br><br>
 
 ******
 
