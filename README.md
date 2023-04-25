@@ -160,7 +160,7 @@ To do the normalization a "composite-table" `article_author`  was created, and a
 
 <br>
 
-### Normalized Data Model
+### Normalized Data Model - Database Schema
 
 <kbd>
   <img src="images/database_model_nyt.png">
