@@ -25,8 +25,9 @@ and *orquestrated* with **Docker-Compose**.
 
 <kbd>
   <img src="images/etl_pipeline.png">
-</kbd>
+</kbd>  
 
+<br>
 <br>
 
 ***
@@ -41,6 +42,8 @@ and *orquestrated* with **Docker-Compose**.
 - FastAPI
 - Docker Containers
 - Docker Compose
+
+<br>
 
 ****  
 
