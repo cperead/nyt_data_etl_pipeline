@@ -113,10 +113,10 @@ The following JSON fields are for every article.
 The obtained data (many JSON files with nested fields) is flattened with MongoDB and then saved into one plain CSV file.  
 
 
-| Raw Data | Data Flattened  |
-| -------- | --------------- |
-| <pre lang="text">"headline": {<br>    "main": "String"<br>    "print_headline": "String"<br>}</pre>|<pre lang="text">"headline_main" : "String"<br>"headline_print_headline" : "String"</pre>|
-| <pre lang="text">"byline": {<br>    "original": "String"<br>    "organization": "String"<br>}</pre>|<pre lang="text">"byline_original" : "String"<br>"byline_organization" : "String"</pre>|
+| Raw Data |  To | Data Flattened  |
+| -------- |:---: |--------------- |
+| <pre lang="text">"headline": {<br>    "main": "String"<br>    "print_headline": "String"<br>}</pre>| &rarr; | <pre lang="text">"headline_main" : "String"<br>"headline_print_headline" : "String"</pre>|
+| <pre lang="text">"byline": {<br>    "original": "String"<br>    "organization": "String"<br>}</pre>| &rarr; | <pre lang="text">"byline_original" : "String"<br>"byline_organization" : "String"</pre>|
 
 
 
