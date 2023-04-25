@@ -1,11 +1,14 @@
 # NYT Data Pipeline: <br> Building a Data Pipeline for Extracting, Transforming, and Loading New York Times Data
 
+<br>
 
 ---
 ## Introduction
 The 'NYT Data Pipeline' is a comprehensive Data Engineering project that aims to create an automated data pipeline for extracting, transforming, and loading data from the New York Times Archive into a normalized relational database.  
 Using Docker and Docker-Compose, all stages of the pipeline are containerized and orchestrated for ease of use.  
 The ultimate goal of the project is to build a scalable API with five query-endpoints that provide users, like Data Scientist or Data Analyst, quick access to the normalized database, particularly the author's information, by querying the SQLite database.
+
+<br>
 
 ---
 # ETL Pipeline Overview
@@ -23,6 +26,10 @@ and *orquestrated* with **Docker-Compose**.
 <kbd>
   <img src="images/etl_pipeline.png">
 </kbd>
+
+<br>
+
+***
 
 # Requirements
 - Linux
@@ -42,7 +49,7 @@ and *orquestrated* with **Docker-Compose**.
 ## 1. Requesting Raw Data - New York Times Archive API
 The New York Times Archive API is requested to obtain information of news articles published by month. The API provides a way to retrieve articles based on year and month.  
 
-The following fields are for every article.
+The following JSON fields are for every article.
 > • **abstract**: A brief summary.  
 > • **web_url**: The URL for the article on the New York Times website.  
 > • **snippet**: A short excerpt.  
@@ -67,8 +74,7 @@ The following fields are for every article.
 > • **word_count**: The number of words in the article.   
 > • **uri**:  Unique identifier for the article that can be used to access the article through the New York Times API.  
 
-
-### Raw Data
+### Raw Data - JSON Schema
 ```json
 {
     "abstract": "String"
@@ -98,6 +104,7 @@ The following fields are for every article.
     "uri": "String"
 }
 ```
+<br>
 
 ## 2. **Flattening**  Data - MongoDB Database
 The obtained data (many JSON files with nested fields) is flattened with MongoDB and then saved into one plain CSV file.  
@@ -110,7 +117,7 @@ The obtained data (many JSON files with nested fields) is flattened with MongoDB
 
 
 
-### Flattened Data Structure
+### Flattened Data - JSON Schema
 ```json
 {
 	"_id": "ObjectId"
@@ -133,23 +140,30 @@ The obtained data (many JSON files with nested fields) is flattened with MongoDB
 	"word_count" : "Integer"                
 }
 ```
+<br>
 
 ## 3. **Cleaning**, **Normalizing** Data and Storing - Pandas & SQLite Database
 The previous CSV file is read into a Dataframe. Then the `byline_original` field that contains one or more authors separated by coma and that have many useless "stop words", are cleaned and normalized.
+<br>
 
 ### Data Cleaning
 <kbd>
   <img src="images/data_cleaning_and_normalization.png">
 </kbd>
 
+<br>
 
 To do the normalization a "composite-table" `article_author`  was created, and also the table `author`. This solves the problem of "many-to-many" data relation.
+
+<br>
 
 ### Normalized Data Model
 
 <kbd>
   <img src="images/database_model_nyt.png">
 </kbd>
+
+<br>
 
 ## 4. Data Consumption - FastAPI
 At this moment, the API consists of 5 api-endpoints that are used to "check" the normalization of the author's data in the database.
@@ -160,6 +174,7 @@ For this reason, all the endpoints are concentrated on querying the author and i
   <img src="images/fastapi_endpoints.png">
 </kbd>
 
+<br>
 
 ******
 
@@ -207,9 +222,11 @@ For this reason, all the endpoints are concentrated on querying the author and i
         [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)  
         You can query the database based in the authors, and then insert articles with new or old authors. So you can test the integrity and normalization of the database.
 
+<br>
+
 ****
 
-# How to run this Pipeline **Manually** with Docker <br> (**Dockerfile-by-Dockerfile**)
+# How to run this Pipeline **Manually** with Docker <br> (**Container-by-Container**)
 
 1. **Clone this project**
 
@@ -343,7 +360,9 @@ For this reason, all the endpoints are concentrated on querying the author and i
         [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)  
         You can query the database based in the authors, and then insert articles with new or old authors. So you can test the integrity and normalization of the database.
 
-*****
+<br>
+
+****
 
 # How to run this Pipeline **Manually** <br>  (**script-by-script**)
 
@@ -459,20 +478,21 @@ For this reason, all the endpoints are concentrated on querying the author and i
 
 ## Test if all articles retrieved from the NYT API, were inserted in the SQLite Database
 
-| Step | Tool | ToDo |
-|------|-------|------- |
+| Step |    Tool   |         ToDo                 |
+|------|-----------|----------------------------- |
 |1.| Editor | Config years and months to request fron NYT API in `etl/config_vars.py` |
 |4.| Terminal | Run `docker compose up` |
 |4.| Terminal | Run this command `grep -roh '{"abstract":' . \| wc -w ` on the `input_data/` folder. This will count the number of articles in all JSON files. |
 |8.| SQLite DB Viewer | Check the last row of the DB, check the number of rows of `article` table. |
 
+<br>
 
 ## Test the **Data Consistency** of the Authors in the Database <br> (Querying or Inserting )
 
 ### Follw these instructions
 
-| Step | Tool | ToDo |
-|------|-------|------- |
+| Step |    Tool   |         ToDo                 |
+|------|-----------|----------------------------- |
 |1.| Editor | Config years and months to request fron NYT API in `etl/config_vars.py` |
 |2.| Terminal | Check no containers are running `docker ps -a` |
 |3.| Browser| 127.0.0.1:8000 (Shouldn't work) |
@@ -487,12 +507,12 @@ For this reason, all the endpoints are concentrated on querying the author and i
 |12.| Browser| In the endpoint `test_inserted` check if the author "Max Mustermann" exists with the dummy info entered |
 |13.| SQLite DB Viewer| Check if the inserted author "Max Mustermann" exists in the `article` and `author` tables, normally at the end. |
 
-
 ### This is a Demo Video where these previous instructions were executed.  
 Take a look for guidance.
 
 [![Test Pipeline Demo Video](./images/test_author_consistency_video_button.jpg)](https://www.youtube.com/watch?v=4VtdaUIie7s "Test Pipeline Demo Video")
 
+<br>
 
 ****
 
@@ -500,13 +520,12 @@ Take a look for guidance.
 
 1. There is a NYT API call limit.
 
-> *There are two rate limits per API:*  
-> * ***500 requests per day*** *and*  
-> * ***5 requests per minute***.    
-> *You should sleep 12 seconds between calls to avoid hitting the per minute rate limit. https://developer.nytimes.com/faq*
+    > *There are two rate limits per API:*  
+    > * ***500 requests per day*** *and*  
+    > * ***5 requests per minute***.
+    > *You should sleep 12 seconds between calls to avoid hitting the per minute rate limit. https://developer.nytimes.com/faq*
 
-In case you exceed this limit, you get JSON files without relevant information, but with the error message.
-
+   In case you exceed those limits, you will get JSON files without relevant information, but with the error message inside.
 
 2. This project is till ongoing.  :wink:
 
