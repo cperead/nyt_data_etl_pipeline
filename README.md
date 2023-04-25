@@ -476,6 +476,8 @@ For this reason, all the endpoints are concentrated on querying the author and i
         You can query the database based in the authors and insert articles with new or old authors. So you can test the integrity and normalization of the database
         * In case you want to interrupt the api:  `CTRL + C`
 
+<br>
+
 ****
 
 # How To Test this Pipeline
