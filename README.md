@@ -513,7 +513,7 @@ For this reason, all the endpoints are concentrated on querying the author and i
 |12.| Browser| In the endpoint `test_inserted` check if the author "Max Mustermann" exists with the dummy info entered |
 |13.| SQLite DB Viewer| Check if the inserted author "Max Mustermann" exists in the `article` and `author` tables, normally at the end. |
 
-### This is a Demo Video where these previous instructions were executed.  
+### This Demo Video demostrates the previous instructions.  
 Take a look for guidance.
 
 [![Test Pipeline Demo Video](./images/test_author_consistency_video_button.jpg)](https://www.youtube.com/watch?v=4VtdaUIie7s "Test Pipeline Demo Video")
