@@ -1,2 +1,7 @@
-z_comands_used.sh
 etl/config_vars.py
+input_data/*.json
+output_data/*.csv
+output_data/*.db
+
+etl/*.ipynb
+z_comands_used.sh
