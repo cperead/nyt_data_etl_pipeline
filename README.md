@@ -533,5 +533,5 @@ Take a look for guidance.
 
    In case you exceed those limits, you will get JSON files without relevant information, but with the error message inside.
 
-2. This project is till ongoing.  :wink:
+2. This project is still ongoing.  :wink:
 
