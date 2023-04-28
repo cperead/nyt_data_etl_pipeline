@@ -486,7 +486,7 @@ For this reason, all the endpoints are concentrated on querying the author and i
 
 | Step |    Tool   |         ToDo                 |
 |------|-----------|----------------------------- |
-|1.| Editor | Config years and months to request fron NYT API in `etl/config_vars.py` |
+|1.| Editor | Config years and months to request from NYT API in `etl/config_vars.py` |
 |2.| Terminal | Run `docker compose up` |
 |3.| Terminal | Run this command `grep -roh '{"abstract":' . \| wc -w ` on the `input_data/` folder. This will count the number of articles in all JSON files. |
 |4.| SQLite DB Viewer | Check the last row of the DB, check the number of rows of `article` table. |
@@ -499,14 +499,14 @@ For this reason, all the endpoints are concentrated on querying the author and i
 
 | Step |    Tool   |         ToDo                 |
 |------|-----------|----------------------------- |
-|1.| Editor | Config years and months to request fron NYT API in `etl/config_vars.py` |
+|1.| Editor | Config years and months to request from NYT API in `etl/config_vars.py` |
 |2.| Terminal | Check no containers are running `docker ps -a` |
 |3.| Browser| 127.0.0.1:8000 (Shouldn't work) |
 |4.| Terminal | Run `docker compose up` |
 |5.| Browser| 127.0.0.1:8000 (Should work)|
 |6.| Editor | Open last JSON file. Check the last article's byline author(s) |
-|7.| Browser| Search this author with the endpoint `test_inserted` |
-|8.| SQLite DB Viewer | Check the last row of the DB, check that  this author is in the `article` and `author` tables |
+|7.| SQLite DB Viewer | Check the last row of the DB, check that  this author is in the `article` and `author` tables |
+|8.| Browser| Search this author with the endpoint `test_inserted` |
 |9.| Browser| In the endpoint `test_inserted` check if, for example, the author "Max Mustermann" exists|
 |10.| SQLite DB Viewer| Check if, for example, the author "Max Mustermann" exists in the `article` and `author` tables |
 |11.| Browser| Insert one dummy article written by "Max Mustermann"|
