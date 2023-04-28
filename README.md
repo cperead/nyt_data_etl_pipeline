@@ -516,7 +516,7 @@ For this reason, all the endpoints are concentrated on querying the author and i
 ### This Demo Video demostrates the previous instructions.  
 Take a look for guidance.
 
-[![Test Pipeline Demo Video](./images/test_author_consistency_video_button.jpg)](https://www.youtube.com/watch?v=4VtdaUIie7s "Test Pipeline Demo Video")
+[![Test NYT Data ETL Pipeline Demo Video](./images/test_author_consistency_video_button.jpg)](https://youtu.be/OaLhPuH9rxM "Test NYT Data ETL Pipeline Demo Video")
 
 <br>
 
