@@ -487,9 +487,9 @@ For this reason, all the endpoints are concentrated on querying the author and i
 | Step |    Tool   |         ToDo                 |
 |------|-----------|----------------------------- |
 |1.| Editor | Config years and months to request fron NYT API in `etl/config_vars.py` |
-|4.| Terminal | Run `docker compose up` |
-|4.| Terminal | Run this command `grep -roh '{"abstract":' . \| wc -w ` on the `input_data/` folder. This will count the number of articles in all JSON files. |
-|8.| SQLite DB Viewer | Check the last row of the DB, check the number of rows of `article` table. |
+|2.| Terminal | Run `docker compose up` |
+|3.| Terminal | Run this command `grep -roh '{"abstract":' . \| wc -w ` on the `input_data/` folder. This will count the number of articles in all JSON files. |
+|4.| SQLite DB Viewer | Check the last row of the DB, check the number of rows of `article` table. |
 
 <br>
 
