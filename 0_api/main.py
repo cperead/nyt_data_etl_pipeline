@@ -19,8 +19,8 @@ app = FastAPI(
                                     'description': 'Query DB'
                                 },
                                 {
-                                    'name': 'Insert',
-                                    'description': 'Insert one article in the DB. Check if author exists or not to save it.'
+                                    'name': 'Test Insert Author',
+                                    'description': 'Insert one article with a new author in the DB.'
                                 }
                             ]
 )
@@ -59,7 +59,7 @@ async def get_index():
 # ------------------------------
 # Retrieve the authors containing the string entered
 @app.get("/author",
-        name = "Retrieve the authors containing the string entered",
+        name = "Retrieve the name of the authors containing the string entered",
         tags = ['Queries']        
         )
 async def fetch_data(author: str):
@@ -76,13 +76,13 @@ async def fetch_data(author: str):
 # ------------------------------
 # Show the nummer of articles that an author
 # has written about a topic (exact word in headline_main)
-@app.get("/articles_author_word",
+@app.get("/articles_count_with_word_in_headline_by_author",
         name = "Show the nummer of articles that one author has written about a topic (exact word in the headline_main)",
         tags = ['Queries']        
         )
 async def fetch_data(author: str, word: str):
     query = '''
-            SELECT au.author_name, COUNT(ar.article_id) AS total_articles, '{word}' AS with_word
+            SELECT au.author_name, COUNT(ar.article_id) AS total_articles, '{word}' AS word_in_headline
             FROM article ar
               JOIN article_author arau ON ar.article_id  = arau.article_id
               JOIN author au           ON arau.author_id = au.author_id
@@ -98,11 +98,214 @@ async def fetch_data(author: str, word: str):
 
 
 # ------------------------------
+# Show the number of articles that an author
+# has written in the different sections
+@app.get("/articles_count_by_section_by_author",
+        name = "Show the nummer of articles that one author has written has written in the different sections",
+        tags = ['Queries']        
+        )
+async def fetch_data(author: str):
+    query = '''
+            SELECT ar.section_name, COUNT(*) AS total_articles_in_section
+            FROM article ar
+              JOIN article_author arau ON ar.article_id  = arau.article_id
+              JOIN author au           ON arau.author_id = au.author_id
+            WHERE au.author_name LIKE '%{author}%'
+            GROUP BY ar.section_name
+            ORDER BY total_articles_in_section DESC;         
+          '''
+    query = query.format(author=author)
+    results = await database.fetch_all(query=query)
+    return  results
+
+# ------------------------------
+# Show the nummer of articles that an author has written
+@app.get("/articles_count_by_author",
+        name = "Show the nummer of articles that authors with string in the name has written.",
+        tags = ['Queries']        
+        )
+async def fetch_data(author: str):
+    query = '''
+            SELECT au.author_name, COUNT(ar.article_id) AS total_articles
+            FROM article ar
+              JOIN article_author arau ON ar.article_id  = arau.article_id
+              JOIN author au           ON arau.author_id = au.author_id
+            WHERE au.author_name LIKE '%{author}%'
+            GROUP BY au.author_name
+            ORDER BY total_articles DESC, au.author_name ASC
+            LIMIT 20;         
+          '''
+    query = query.format(author=author)
+    results = await database.fetch_all(query=query)
+    return  results
+
+
+# ------------------------------
+# Show top authors by section
+@app.get("/top_authors_by_section",
+        name = "Top author with most articles per section, ranked by article count",
+        tags = ['Queries']        
+        )
+async def fetch_data():
+    query = '''
+            WITH section_author_count AS (
+                SELECT 
+                    a.section_name, 
+                    au.author_name, 
+                    COUNT(*) as article_count
+                FROM 
+                    article a
+                JOIN 
+                    article_author aa ON a.article_id = aa.article_id
+                JOIN 
+                    author au ON aa.author_id = au.author_id
+                GROUP BY 
+                    a.section_name, 
+                    au.author_name
+            )
+
+            SELECT 
+                s1.section_name, 
+                s1.author_name AS top_author_name, 
+                s1.article_count
+            FROM 
+                section_author_count s1
+            JOIN 
+                section_author_count s2 ON s1.section_name = s2.section_name AND s1.article_count <= s2.article_count
+            GROUP BY 
+                s1.section_name, 
+                s1.author_name
+            HAVING 
+                COUNT(*) <= 1
+            ORDER BY 
+                s1.section_name, 
+                s1.article_count DESC;         
+            '''
+    query = query.format()
+    results = await database.fetch_all(query=query)
+    return  results
+
+
+# ------------------------------
+# Show top authors by section
+@app.get("/most_prolific_authors_by_section",
+        name = "Author with highest word count per section",
+        tags = ['Queries']        
+        )
+async def fetch_data():
+    query = '''
+            WITH section_author_wordcount AS (
+                SELECT 
+                    a.section_name, 
+                    au.author_name, 
+                    SUM(a.word_count) as total_word_count
+                FROM 
+                    article a
+                JOIN 
+                    article_author aa ON a.article_id = aa.article_id
+                JOIN 
+                    author au ON aa.author_id = au.author_id
+                GROUP BY 
+                    a.section_name, 
+                    au.author_name
+            )
+
+            SELECT 
+                s1.section_name, 
+                s1.author_name, 
+                s1.total_word_count
+            FROM 
+                section_author_wordcount s1
+            JOIN 
+                section_author_wordcount s2 ON s1.section_name = s2.section_name AND s1.total_word_count <= s2.total_word_count
+            GROUP BY 
+                s1.section_name, 
+                s1.author_name
+            HAVING 
+                COUNT(*) <= 1
+            ORDER BY 
+                s1.total_word_count DESC;         
+            '''
+    query = query.format()
+    results = await database.fetch_all(query=query)
+    return  results
+
+
+
+# ------------------------------
+# Show top authors by section
+@app.get("/count_pairs_authors_collaboration",
+        name = "Groups of two authors and how many articles they wrote together",
+        tags = ['Queries']        
+        )
+async def fetch_data():
+    query = '''
+            SELECT 
+                aa1.author_id AS author1_id,
+                au1.author_name AS author1_name,
+                aa2.author_id AS author2_id,
+                au2.author_name AS author2_name,
+                COUNT(*) AS coauthored_articles_count
+            FROM 
+                article_author aa1
+            JOIN 
+                article_author aa2 ON aa1.article_id = aa2.article_id AND aa1.author_id < aa2.author_id
+            JOIN 
+                author au1 ON aa1.author_id = au1.author_id
+            JOIN 
+                author au2 ON aa2.author_id = au2.author_id
+            GROUP BY 
+                author1_id, 
+                author2_id
+            ORDER BY 
+                coauthored_articles_count DESC;         
+            '''
+    query = query.format()
+    results = await database.fetch_all(query=query)
+    return  results
+
+# ------------------------------
+# Show top authors by section
+@app.get("/articles_count_by_author_per_year_month",
+        name = "Number of articles by author per year and month",
+        tags = ['Queries']        
+        )
+async def fetch_data(author: str):
+    query = '''
+            SELECT 
+            	au.author_name,
+                STRFTIME('%Y', a.a_date) AS year,
+            	STRFTIME('%m', a.a_date) AS month,
+                COUNT(*) as articles_written
+            FROM 
+                article a
+            JOIN 
+                article_author aa ON a.article_id = aa.article_id
+            JOIN 
+                author au ON aa.author_id = au.author_id
+            WHERE
+            	au.author_name LIKE "%{author}%"
+            GROUP BY 
+                au.author_name, 
+                year
+            ORDER BY 
+            	au.author_name,
+            	year,
+            	month;
+            '''
+    query = query.format(author=author)
+    results = await database.fetch_all(query=query)
+    return  results
+
+
+
+# ===================================================================
+# ------------------------------
 # Show the articles written by an author ordered latest first.
 # Can check the inserted one
 @app.get("/test_inserted",
         name = "Show the articles written by an author ordered latest first. You can check the inserted one",
-        tags = ['Queries']        
+        tags = ['Test Insert Author']        
         )
 async def test_inserted(author: str):
     query = '''
@@ -126,7 +329,7 @@ async def test_inserted(author: str):
 # Check if the author exists or not, taking care of the DB integrity
 @app.post("/insert_article",
         name = "Insert a new article with his one author. Check if the author exists or not, taking care of the DB integrity",
-        tags = ['Insert']        
+        tags = ['Test Insert Author']        
         )
 async def insert_article(
                 abstract: str,

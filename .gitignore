@@ -3,5 +3,7 @@ input_data/*.json
 output_data/*.csv
 output_data/*.db
 
+0_api/__pycache__
 etl/*.ipynb
+venv_api/
 z_comands_used.sh
