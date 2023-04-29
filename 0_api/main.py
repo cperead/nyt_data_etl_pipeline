@@ -15,7 +15,11 @@ app = FastAPI(
                                     'description': 'Checks API Status'
                                 },
                                 {
-                                    'name': 'Queries',
+                                    'name': 'Query Authors',
+                                    'description': 'Query DB'
+                                },
+                                {
+                                    'name': 'Info Authors',
                                     'description': 'Query DB'
                                 },
                                 {
@@ -53,14 +57,14 @@ async def get_index():
 
 
 # ============================================
-#  QUERIES
+#  Query Authors
 # ============================================
 
 # ------------------------------
 # Retrieve the authors containing the string entered
 @app.get("/author",
         name = "Retrieve the name of the authors containing the string entered",
-        tags = ['Queries']        
+        tags = ['Query Authors']        
         )
 async def fetch_data(author: str):
     query = '''
@@ -77,11 +81,11 @@ async def fetch_data(author: str):
     return  results
 
 # ------------------------------
-# Show the nummer of articles that an author
+# Show the number of articles that an author
 # has written about a topic (exact word in headline_main)
 @app.get("/articles_count_with_word_in_headline_by_author",
-        name = "Show the nummer of articles that one author has written about a topic (exact word in the headline_main)",
-        tags = ['Queries']        
+        name = "Show the number of articles that one author has written about a topic (exact word in the headline_main)",
+        tags = ['Query Authors']        
         )
 async def fetch_data(author: str, word: str):
     query = '''
@@ -115,8 +119,8 @@ async def fetch_data(author: str, word: str):
 # Show the number of articles that an author
 # has written in the different sections
 @app.get("/articles_count_by_section_by_author",
-        name = "Show the nummer of articles that one author has written has written in the different sections",
-        tags = ['Queries']        
+        name = "Show the number of articles that one author has written has written in the different sections",
+        tags = ['Query Authors']        
         )
 async def fetch_data(author: str):
     query = '''
@@ -141,10 +145,10 @@ async def fetch_data(author: str):
     return  results
 
 # ------------------------------
-# Show the nummer of articles that an author has written
+# Show the number of articles that an author has written
 @app.get("/articles_count_by_author",
-        name = "Show the nummer of articles that authors with string in the name has written.",
-        tags = ['Queries']        
+        name = "Show the number of articles that authors with string in the name has written.",
+        tags = ['Query Authors']        
         )
 async def fetch_data(author: str):
     query = '''
@@ -172,9 +176,46 @@ async def fetch_data(author: str):
 
 # ------------------------------
 # Show top authors by section
+@app.get("/articles_count_by_author_per_year_month",
+        name = "Number of articles by author per year and month",
+        tags = ['Query Authors']        
+        )
+async def fetch_data(author: str):
+    query = '''
+            SELECT 
+            	au.author_name,
+                STRFTIME('%Y', a.a_date) AS year,
+            	STRFTIME('%m', a.a_date) AS month,
+                COUNT(*) as articles_written
+            FROM 
+                article a
+                JOIN 
+                    article_author aa ON a.article_id = aa.article_id
+                JOIN 
+                    author au ON aa.author_id = au.author_id
+            WHERE
+            	au.author_name LIKE "%{author}%"
+            GROUP BY 
+                au.author_name, 
+                year
+            ORDER BY 
+            	au.author_name,
+            	year,
+            	month;
+            '''
+    query = query.format(author=author)
+    results = await database.fetch_all(query=query)
+    return  results
+
+# ============================================
+#  Info Authors
+# ============================================
+
+# ------------------------------
+# Show top authors by section
 @app.get("/top_authors_by_section",
         name = "Top author with most articles per section, ranked by article count",
-        tags = ['Queries']        
+        tags = ['Info Authors']        
         )
 async def fetch_data():
     query = '''
@@ -220,7 +261,7 @@ async def fetch_data():
 # Show top authors by section
 @app.get("/most_prolific_authors_by_section",
         name = "Author with highest word count per section",
-        tags = ['Queries']        
+        tags = ['Info Authors']        
         )
 async def fetch_data():
     query = '''
@@ -266,7 +307,7 @@ async def fetch_data():
 # Show top authors by section
 @app.get("/count_pairs_authors_collaboration",
         name = "Groups of two authors and how many articles they wrote together",
-        tags = ['Queries']        
+        tags = ['Info Authors']        
         )
 async def fetch_data():
     query = '''
@@ -294,42 +335,12 @@ async def fetch_data():
     results = await database.fetch_all(query=query)
     return  results
 
-# ------------------------------
-# Show top authors by section
-@app.get("/articles_count_by_author_per_year_month",
-        name = "Number of articles by author per year and month",
-        tags = ['Queries']        
-        )
-async def fetch_data(author: str):
-    query = '''
-            SELECT 
-            	au.author_name,
-                STRFTIME('%Y', a.a_date) AS year,
-            	STRFTIME('%m', a.a_date) AS month,
-                COUNT(*) as articles_written
-            FROM 
-                article a
-                JOIN 
-                    article_author aa ON a.article_id = aa.article_id
-                JOIN 
-                    author au ON aa.author_id = au.author_id
-            WHERE
-            	au.author_name LIKE "%{author}%"
-            GROUP BY 
-                au.author_name, 
-                year
-            ORDER BY 
-            	au.author_name,
-            	year,
-            	month;
-            '''
-    query = query.format(author=author)
-    results = await database.fetch_all(query=query)
-    return  results
 
 
+# ============================================
+#  Test Insert Author
+# ============================================
 
-# ===================================================================
 # ------------------------------
 # Show the articles written by an author ordered latest first.
 # Can check the inserted one
