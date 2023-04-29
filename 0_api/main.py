@@ -64,11 +64,14 @@ async def get_index():
         )
 async def fetch_data(author: str):
     query = '''
-            SELECT * 
-            FROM author
-            WHERE author_name LIKE '%{author}%'
+            SELECT 
+                * 
+            FROM 
+                author
+            WHERE 
+                author_name LIKE '%{author}%'
             LIMIT 5          
-          '''
+            '''
     query = query.format(author=author)
     results = await database.fetch_all(query=query)
     return  results
@@ -82,16 +85,27 @@ async def fetch_data(author: str):
         )
 async def fetch_data(author: str, word: str):
     query = '''
-            SELECT au.author_name, COUNT(ar.article_id) AS total_articles, '{word}' AS word_in_headline
-            FROM article ar
-              JOIN article_author arau ON ar.article_id  = arau.article_id
-              JOIN author au           ON arau.author_id = au.author_id
-            WHERE ar.headline_main LIKE '%{word}%'
-              AND au.author_name LIKE '%{author}%'
-            GROUP BY au.author_name
-            ORDER BY total_articles DESC, au.author_name ASC
+            SELECT 
+                au.author_name, 
+                COUNT(ar.article_id) AS total_articles, 
+                '{word}' AS word_in_headline
+            FROM 
+                article ar
+                JOIN 
+                    article_author arau ON ar.article_id  = arau.article_id
+                JOIN 
+                    author au           ON arau.author_id = au.author_id
+            WHERE 
+                ar.headline_main LIKE '%{word}%'
+                AND 
+                au.author_name LIKE '%{author}%'
+            GROUP BY 
+                au.author_name
+            ORDER BY 
+                total_articles DESC, 
+                au.author_name ASC
             LIMIT 20;         
-          '''
+            '''
     query = query.format(word=word, author=author)
     results = await database.fetch_all(query=query)
     return  results
@@ -106,14 +120,22 @@ async def fetch_data(author: str, word: str):
         )
 async def fetch_data(author: str):
     query = '''
-            SELECT ar.section_name, COUNT(*) AS total_articles_in_section
-            FROM article ar
-              JOIN article_author arau ON ar.article_id  = arau.article_id
-              JOIN author au           ON arau.author_id = au.author_id
-            WHERE au.author_name LIKE '%{author}%'
-            GROUP BY ar.section_name
-            ORDER BY total_articles_in_section DESC;         
-          '''
+            SELECT 
+                ar.section_name, 
+                COUNT(*) AS total_articles_in_section
+            FROM 
+                article ar
+                JOIN 
+                    article_author arau ON ar.article_id  = arau.article_id
+                JOIN 
+                    author au           ON arau.author_id = au.author_id
+            WHERE 
+                au.author_name LIKE '%{author}%'
+            GROUP BY 
+                ar.section_name
+            ORDER BY 
+                total_articles_in_section DESC;         
+            '''
     query = query.format(author=author)
     results = await database.fetch_all(query=query)
     return  results
@@ -126,15 +148,23 @@ async def fetch_data(author: str):
         )
 async def fetch_data(author: str):
     query = '''
-            SELECT au.author_name, COUNT(ar.article_id) AS total_articles
-            FROM article ar
-              JOIN article_author arau ON ar.article_id  = arau.article_id
-              JOIN author au           ON arau.author_id = au.author_id
-            WHERE au.author_name LIKE '%{author}%'
-            GROUP BY au.author_name
-            ORDER BY total_articles DESC, au.author_name ASC
+            SELECT 
+                au.author_name, 
+                COUNT(ar.article_id) AS total_articles
+            FROM 
+                article ar
+                JOIN 
+                    article_author arau ON ar.article_id  = arau.article_id
+                JOIN 
+                    author au           ON arau.author_id = au.author_id
+            WHERE 
+                au.author_name LIKE '%{author}%'
+            GROUP BY 
+                au.author_name
+            ORDER BY 
+                total_articles DESC, au.author_name ASC
             LIMIT 20;         
-          '''
+            '''
     query = query.format(author=author)
     results = await database.fetch_all(query=query)
     return  results
@@ -155,10 +185,10 @@ async def fetch_data():
                     COUNT(*) as article_count
                 FROM 
                     article a
-                JOIN 
-                    article_author aa ON a.article_id = aa.article_id
-                JOIN 
-                    author au ON aa.author_id = au.author_id
+                    JOIN 
+                        article_author aa ON a.article_id = aa.article_id
+                    JOIN 
+                        author au ON aa.author_id = au.author_id
                 GROUP BY 
                     a.section_name, 
                     au.author_name
@@ -170,8 +200,8 @@ async def fetch_data():
                 s1.article_count
             FROM 
                 section_author_count s1
-            JOIN 
-                section_author_count s2 ON s1.section_name = s2.section_name AND s1.article_count <= s2.article_count
+                JOIN 
+                    section_author_count s2 ON s1.section_name = s2.section_name AND s1.article_count <= s2.article_count
             GROUP BY 
                 s1.section_name, 
                 s1.author_name
@@ -201,10 +231,10 @@ async def fetch_data():
                     SUM(a.word_count) as total_word_count
                 FROM 
                     article a
-                JOIN 
-                    article_author aa ON a.article_id = aa.article_id
-                JOIN 
-                    author au ON aa.author_id = au.author_id
+                    JOIN 
+                        article_author aa ON a.article_id = aa.article_id
+                    JOIN 
+                        author au ON aa.author_id = au.author_id
                 GROUP BY 
                     a.section_name, 
                     au.author_name
@@ -216,8 +246,8 @@ async def fetch_data():
                 s1.total_word_count
             FROM 
                 section_author_wordcount s1
-            JOIN 
-                section_author_wordcount s2 ON s1.section_name = s2.section_name AND s1.total_word_count <= s2.total_word_count
+                JOIN 
+                  section_author_wordcount s2 ON s1.section_name = s2.section_name AND s1.total_word_count <= s2.total_word_count
             GROUP BY 
                 s1.section_name, 
                 s1.author_name
@@ -248,12 +278,12 @@ async def fetch_data():
                 COUNT(*) AS coauthored_articles_count
             FROM 
                 article_author aa1
-            JOIN 
-                article_author aa2 ON aa1.article_id = aa2.article_id AND aa1.author_id < aa2.author_id
-            JOIN 
-                author au1 ON aa1.author_id = au1.author_id
-            JOIN 
-                author au2 ON aa2.author_id = au2.author_id
+                JOIN 
+                    article_author aa2 ON aa1.article_id = aa2.article_id AND aa1.author_id < aa2.author_id
+                JOIN 
+                    author au1 ON aa1.author_id = au1.author_id
+                JOIN 
+                    author au2 ON aa2.author_id = au2.author_id
             GROUP BY 
                 author1_id, 
                 author2_id
@@ -279,10 +309,10 @@ async def fetch_data(author: str):
                 COUNT(*) as articles_written
             FROM 
                 article a
-            JOIN 
-                article_author aa ON a.article_id = aa.article_id
-            JOIN 
-                author au ON aa.author_id = au.author_id
+                JOIN 
+                    article_author aa ON a.article_id = aa.article_id
+                JOIN 
+                    author au ON aa.author_id = au.author_id
             WHERE
             	au.author_name LIKE "%{author}%"
             GROUP BY 
@@ -309,12 +339,23 @@ async def fetch_data(author: str):
         )
 async def test_inserted(author: str):
     query = '''
-            SELECT ar.article_id, ar.abstract, ar.headline_main, a_date || ' ' || a_time, au.author_id, au.author_name
-            FROM   article ar
-              JOIN article_author arau ON ar.article_id  = arau.article_id
-              JOIN author au           ON arau.author_id = au.author_id
-            WHERE  au.author_name LIKE '%{author}%'
-            ORDER BY ar.article_id DESC
+            SELECT 
+                ar.article_id, 
+                ar.abstract, 
+                ar.headline_main, 
+                a_date || ' ' || a_time, 
+                au.author_id, 
+                au.author_name
+            FROM 
+                article ar
+                JOIN 
+                    article_author arau ON ar.article_id  = arau.article_id
+                JOIN
+                    author au           ON arau.author_id = au.author_id
+            WHERE  
+                au.author_name LIKE '%{author}%'
+            ORDER BY 
+                ar.article_id DESC
             LIMIT  20;         
           '''
     query = query.format(author=author)
@@ -344,8 +385,9 @@ async def insert_article(
     a_date = now.strftime("%Y-%m-%d")
     a_time = now.strftime("%H:%M:%S")
     
-    query = '''INSERT OR IGNORE INTO article (abstract, section_name, headline_main, a_date, a_time, authors) 
-               VALUES (:abstract, :section_name, :headline_main, :a_date, :a_time, :authors)
+    query = '''
+            INSERT OR IGNORE INTO article (abstract, section_name, headline_main, a_date, a_time, authors) 
+            VALUES (:abstract, :section_name, :headline_main, :a_date, :a_time, :authors)
             '''
     values = {"abstract": abstract,
               "section_name": section_name,
@@ -357,8 +399,10 @@ async def insert_article(
     await database.execute(query=query, values=values)
 
     query = '''
-            SELECT MAX(article_id) AS max_article_id 
-            FROM article
+            SELECT 
+                MAX(article_id) AS max_article_id 
+            FROM 
+                article
             '''
     result = await database.fetch_all(query=query)
     
@@ -369,9 +413,12 @@ async def insert_article(
 
     # Search author to be inserted if exist or not in the table 'author'
     query = ''' 
-                SELECT COUNT(author_id) AS count_author_id
-                FROM author 
-                WHERE author_name LIKE '{authors}';
+                SELECT 
+                    COUNT(author_id) AS count_author_id
+                FROM 
+                    author 
+                WHERE 
+                    author_name LIKE '{authors}';
             '''
     query = query.format(authors=authors)
     result = await database.fetch_all(query=query)
@@ -389,8 +436,10 @@ async def insert_article(
         await database.execute(query=query, values=values)
 
         query = '''
-                    SELECT MAX(author_id) AS max_author_id 
-                    FROM author
+                    SELECT 
+                        MAX(author_id) AS max_author_id 
+                    FROM 
+                        author
                 '''
         result = await database.fetch_all(query=query)
     
@@ -398,9 +447,12 @@ async def insert_article(
     # If the author exists, retrieve his author_id
     else:
         query = ''' 
-                    SELECT author_id
-                    FROM author 
-                    WHERE author_name LIKE '{authors}';
+                    SELECT 
+                        author_id
+                    FROM 
+                        author 
+                    WHERE 
+                        author_name LIKE '{authors}';
                 '''
         query = query.format(authors=authors)
         result = await database.fetch_all(query=query)
