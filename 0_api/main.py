@@ -15,12 +15,16 @@ app = FastAPI(
                                     'description': 'Checks API Status'
                                 },
                                 {
+                                    'name': 'Database Statistics',
+                                    'description': 'Database Statistics'
+                                },
+                                {
                                     'name': 'Query Authors',
-                                    'description': 'Query DB'
+                                    'description': 'Query Authors. It can be queried a string'
                                 },
                                 {
                                     'name': 'Info Authors',
-                                    'description': 'Query DB'
+                                    'description': 'Retrieve predefined info related with authors'
                                 },
                                 {
                                     'name': 'Test Insert Author',
@@ -53,6 +57,41 @@ async def database_disconnect():
         )
 async def get_index():
     return { 'API is running!': 'More info at: http://127.0.0.1:8000/docs' }
+
+
+# ============================================
+#  DB statistics
+# ============================================
+
+# ------------------------------
+# Retrieve the authors containing the string entered
+@app.get("/rows_per_table",
+        name = "Total number of rows per table",
+        tags = ['Database Statistics']        
+        )
+async def fetch_data():
+    query = '''
+            SELECT 
+                'article' AS 'table_name',
+                COUNT(*) AS 'total_rows'
+            FROM 
+                article
+            UNION
+            SELECT 
+                'author' AS 'table_name',
+                COUNT(*) AS 'total_rows'
+            FROM 
+                author
+            UNION
+            SELECT
+                'article_author' AS 'table_name', 
+                COUNT(*) AS 'total_rows'
+            FROM 
+        	    article_author         
+            '''
+    query = query.format()
+    results = await database.fetch_all(query=query)
+    return  results
 
 
 
