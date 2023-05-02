@@ -4,6 +4,7 @@ output_data/*.csv
 output_data/*.db
 
 0_api/__pycache__
+etl/__pycache__
 etl/*.ipynb
 venv_api/
 venv_mongo/
