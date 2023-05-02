@@ -3,8 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from databases import Database
 from datetime import datetime
 
-# ------------------------------
-# Initialization
+# --------------------------------------------
+# Initialization, groups
 app = FastAPI(
                 title="Read NYT Archive API Results",
                 description="► Powered by FastAPI.",
@@ -36,12 +36,12 @@ app = FastAPI(
 database = Database("sqlite:///../output_data/nyt_db.db")
 
 
-# ------------------------------
+# --------------------------------------------
 @app.on_event("startup")
 async def database_connect():
     await database.connect()
 
-# ------------------------------
+# --------------------------------------------
 @app.on_event("shutdown")
 async def database_disconnect():
     await database.disconnect()
@@ -103,7 +103,7 @@ async def fetch_data():
 #  Query Authors
 # ============================================
 
-# ------------------------------
+# --------------------------------------------
 # Retrieve the name of the authors containing the string entered
 @app.get("/author",
         name = "Retrieve the names of authors that contain the [search string]",
@@ -123,7 +123,7 @@ async def fetch_data(author: str):
     results = await database.fetch_all(query=query)
     return  results
 
-# ------------------------------
+# --------------------------------------------
 # Visualize the count of articles authored by [author name]
 # that include the [exact word] in the 'headline_main' field
 @app.get("/articles_count_with_word_in_headline_by_author",
@@ -158,7 +158,7 @@ async def fetch_data(author: str, word: str):
     return  results
 
 
-# ------------------------------
+# --------------------------------------------
 # Visualize the count of articles authored by [author name] in each section
 @app.get("/articles_count_by_section_by_author",
         name = "Visualize the count of articles authored by [author name] in each section",
@@ -186,7 +186,7 @@ async def fetch_data(author: str):
     results = await database.fetch_all(query=query)
     return  results
 
-# ------------------------------
+# --------------------------------------------
 # Visualize the count of articles written by authors
 # whose name contains the [search string]
 @app.get("/articles_count_by_author",
@@ -217,7 +217,7 @@ async def fetch_data(author: str):
     return  results
 
 
-# ------------------------------
+# --------------------------------------------
 # Visualize the count of articles authored by each author,
 # grouped by year and month.
 @app.get("/articles_count_by_author_per_year_month",
@@ -251,11 +251,12 @@ async def fetch_data(author: str):
     results = await database.fetch_all(query=query)
     return  results
 
+
 # ============================================
 #  Info Authors
 # ============================================
 
-# ------------------------------
+# --------------------------------------------
 # Rank the authors in each section by the count of their articles
 # and visualize the top author in each section.
 @app.get("/top_authors_by_section",
@@ -302,7 +303,7 @@ async def fetch_data():
     return  results
 
 
-# ------------------------------
+# --------------------------------------------
 # Rank authors in each section by word count
 # and visualize the author with the highest word count in each section.
 @app.get("/most_prolific_authors_by_section",
@@ -348,8 +349,7 @@ async def fetch_data():
     return  results
 
 
-
-# ------------------------------
+# --------------------------------------------
 # Identify pairs of authors 
 # and visualize the count of articles they co-authored.
 @app.get("/count_pairs_authors_collaboration",
@@ -388,7 +388,7 @@ async def fetch_data():
 #  Test Insert Author
 # ============================================
 
-# ------------------------------
+# --------------------------------------------
 # Show the articles written by an author ordered latest first.
 # Can check the inserted one
 @app.get("/test_inserted_author",
@@ -421,9 +421,9 @@ async def test_inserted(author: str):
     return  results
 
 
-# ============================================
+# --------------------------------------------
 #  INSERT
-# ============================================
+# --------------------------------------------
 # Insert a new article with its one author.
 # Check if the author exists or not, taking care of the DB integrity
 @app.post("/insert_new_article_with_new_author",
