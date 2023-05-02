@@ -28,7 +28,7 @@ app = FastAPI(
                                 },
                                 {
                                     'name': 'Test Insert Author',
-                                    'description': 'Test the DB-Normalization inserting one article with a new author in the DB, and after checking the author table.'
+                                    'description': 'Test the DB-Normalization inserting one article with a new author in the DB, and after checking the author table'
                                 }
                             ]
 )
@@ -50,9 +50,9 @@ async def database_disconnect():
 # ============================================
 #  STATUS
 # ============================================    
-# Check that the api is working
+# Check thif if the api is working
 @app.get("/",
-        name = "Check status",
+        name = "Check thif if the api is working",
         tags = ['Status']        
         )
 async def get_index():
