@@ -36,7 +36,7 @@ and *orquestrated* with **Docker-Compose**.
 - Linux
 - Bash - Curl
 - Python 3.10
-- Python libraries: pymongo, pandas, databases, uvicorn, databases
+- Python libraries: pymongo, pandas, numpy, json, uvicorn, databases
 - SQLite
 - MongoDB
 - FastAPI
