@@ -20,15 +20,15 @@ app = FastAPI(
                                 },
                                 {
                                     'name': 'Query Authors',
-                                    'description': 'Query Authors. It can be queried a string'
+                                    'description': 'Query, search author defined by the user'
                                 },
                                 {
                                     'name': 'Info Authors',
-                                    'description': 'Retrieve predefined info related with authors'
+                                    'description': 'Retrieve predefined info-queries about authors'
                                 },
                                 {
                                     'name': 'Test Insert Author',
-                                    'description': 'Insert one article with a new author in the DB.'
+                                    'description': 'Test the DB-Normalization inserting one article with a new author in the DB, and after checking the author table.'
                                 }
                             ]
 )
@@ -63,8 +63,8 @@ async def get_index():
 #  DB statistics
 # ============================================
 
-# ------------------------------
-# Retrieve the authors containing the string entered
+# --------------------------------------------
+# Retrieve the total number of rows per table
 @app.get("/rows_per_table",
         name = "Total number of rows per table",
         tags = ['Database Statistics']        
@@ -76,13 +76,17 @@ async def fetch_data():
                 COUNT(*) AS 'total_rows'
             FROM 
                 article
+
             UNION
+
             SELECT 
                 'author' AS 'table_name',
                 COUNT(*) AS 'total_rows'
             FROM 
                 author
+            
             UNION
+
             SELECT
                 'article_author' AS 'table_name', 
                 COUNT(*) AS 'total_rows'
@@ -100,9 +104,9 @@ async def fetch_data():
 # ============================================
 
 # ------------------------------
-# Retrieve the authors containing the string entered
+# Retrieve the name of the authors containing the string entered
 @app.get("/author",
-        name = "Retrieve the name of the authors containing the string entered",
+        name = "Retrieve the names of authors that contain the [search string]",
         tags = ['Query Authors']        
         )
 async def fetch_data(author: str):
@@ -120,10 +124,10 @@ async def fetch_data(author: str):
     return  results
 
 # ------------------------------
-# Show the number of articles that an author
-# has written about a topic (exact word in headline_main)
+# Visualize the count of articles authored by [author name]
+# that include the [exact word] in the 'headline_main' field
 @app.get("/articles_count_with_word_in_headline_by_author",
-        name = "Show the number of articles that one author has written about a topic (exact word in the headline_main)",
+        name = "Visualize the count of articles authored by [author name] that include the [exact word] in the 'headline_main' field",
         tags = ['Query Authors']        
         )
 async def fetch_data(author: str, word: str):
@@ -155,10 +159,9 @@ async def fetch_data(author: str, word: str):
 
 
 # ------------------------------
-# Show the number of articles that an author
-# has written in the different sections
+# Visualize the count of articles authored by [author name] in each section
 @app.get("/articles_count_by_section_by_author",
-        name = "Show the number of articles that one author has written has written in the different sections",
+        name = "Visualize the count of articles authored by [author name] in each section",
         tags = ['Query Authors']        
         )
 async def fetch_data(author: str):
@@ -184,9 +187,10 @@ async def fetch_data(author: str):
     return  results
 
 # ------------------------------
-# Show the number of articles that an author has written
+# Visualize the count of articles written by authors
+# whose name contains the [search string]
 @app.get("/articles_count_by_author",
-        name = "Show the number of articles that authors with string in the name has written.",
+        name = "Visualize the count of articles written by authors whose name contains the [search string]",
         tags = ['Query Authors']        
         )
 async def fetch_data(author: str):
@@ -214,9 +218,10 @@ async def fetch_data(author: str):
 
 
 # ------------------------------
-# Show top authors by section
+# Visualize the count of articles authored by each author,
+# grouped by year and month.
 @app.get("/articles_count_by_author_per_year_month",
-        name = "Number of articles by author per year and month",
+        name = "Visualize the count of articles authored by [author name] string, grouped by year and month",
         tags = ['Query Authors']        
         )
 async def fetch_data(author: str):
@@ -251,9 +256,10 @@ async def fetch_data(author: str):
 # ============================================
 
 # ------------------------------
-# Show top authors by section
+# Rank the authors in each section by the count of their articles
+# and visualize the top author in each section.
 @app.get("/top_authors_by_section",
-        name = "Top author with most articles per section, ranked by article count",
+        name = "Rank the authors in each section by the count of their articles and visualize the top author in each section",
         tags = ['Info Authors']        
         )
 async def fetch_data():
@@ -297,9 +303,10 @@ async def fetch_data():
 
 
 # ------------------------------
-# Show top authors by section
+# Rank authors in each section by word count
+# and visualize the author with the highest word count in each section.
 @app.get("/most_prolific_authors_by_section",
-        name = "Author with highest word count per section",
+        name = "Rank authors in each section by word count and visualize the author with the highest word count in each section",
         tags = ['Info Authors']        
         )
 async def fetch_data():
@@ -343,9 +350,10 @@ async def fetch_data():
 
 
 # ------------------------------
-# Show top authors by section
+# Identify pairs of authors 
+# and visualize the count of articles they co-authored.
 @app.get("/count_pairs_authors_collaboration",
-        name = "Groups of two authors and how many articles they wrote together",
+        name = "Identify pairs of authors and visualize the count of articles they co-authored",
         tags = ['Info Authors']        
         )
 async def fetch_data():
@@ -383,7 +391,7 @@ async def fetch_data():
 # ------------------------------
 # Show the articles written by an author ordered latest first.
 # Can check the inserted one
-@app.get("/test_inserted",
+@app.get("/test_inserted_author",
         name = "Show the articles written by an author ordered latest first. You can check the inserted one",
         tags = ['Test Insert Author']        
         )
@@ -418,8 +426,8 @@ async def test_inserted(author: str):
 # ============================================
 # Insert a new article with its one author.
 # Check if the author exists or not, taking care of the DB integrity
-@app.post("/insert_article",
-        name = "Insert a new article with his one author. Check if the author exists or not, taking care of the DB integrity",
+@app.post("/insert_new_article_with_new_author",
+        name = "Insert a new article with a new author. Check if the author exists or not, taking care of the DB integrity",
         tags = ['Test Insert Author']        
         )
 async def insert_article(
