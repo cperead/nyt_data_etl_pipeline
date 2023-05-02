@@ -180,7 +180,7 @@ At this moment, the API consists of 12 api-endpoints.
 ### API endpoints
 
 1. **Status** : Checks API Status
-    - **/** : Check thif if the api is working.  
+    - **/** : Check if the api is working.  
 
 2. **Database Statistics** : Database Statistics
     - **/rows_per_table** : Total number of rows per table.  
