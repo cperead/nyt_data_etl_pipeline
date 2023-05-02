@@ -176,23 +176,23 @@ For this reason, all the endpoints are concentrated on querying the author and i
 
 ### API endpoints
 
-1. **Status** Checks API Status
-    - **/** Check thif if the api is working.
-2. **Database Statistics** Database Statistics
-    - **/rows_per_table** Total number of rows per table.
-3. **Query Authors** Query, search author defined by the user
-    - **/author** Retrieve the names of authors that contain the [search string].
-    - **/articles_count_with_word_in_headline_by_author** Visualize the count of articles authored by [author name] that include the [exact word] in the 'headline_main' field.
-    - **/articles_count_by_section_by_author** Visualize the count of articles authored by [author name] in each section.
-    - **/articles_count_by_author** Visualize the count of articles written by authors whose name contains the [search string].
-    - **/articles_count_by_author_per_year_month** Visualize the count of articles authored by [author name] string, grouped by year and month.
-4. **Info Authors** Retrieve predefined info-queries about authors
-    - **top_authors_by_section** Rank the authors in each section by the count of their articles and visualize the top author in each section.
-    - **/most_prolific_authors_by_section** Rank authors in each section by word count and visualize the author with the highest word count in each section.
-    - **/count_pairs_authors_collaboration** Identify pairs of authors and visualize the count of articles they co-authored.
-5. **Test Insert Author** Test the DB-Normalization inserting one article with a new author in the DB, and after checking the author table
-    - **test_inserted_author** Show the articles written by an author ordered latest first. You can check the inserted one.
-    - **/insert_new_article_with_new_author** Insert a new article with a new author. Check if the author exists or not, taking care of the DB integrity.
+1. **Status** : Checks API Status
+    - **/** : Check thif if the api is working.
+2. **Database Statistics** : Database Statistics
+    - **/rows_per_table** : Total number of rows per table.
+3. **Query Authors** : Query, search author defined by the user
+    - **/author** : Retrieve the names of authors that contain the [search string].
+    - **/articles_count_with_word_in_headline_by_author** : Visualize the count of articles authored by [author name] that include the [exact word] in the 'headline_main' field.
+    - **/articles_count_by_section_by_author** : Visualize the count of articles authored by [author name] in each section.
+    - **/articles_count_by_author** : Visualize the count of articles written by authors whose name contains the [search string].
+    - **/articles_count_by_author_per_year_month** : Visualize the count of articles authored by [author name] string, grouped by year and month.
+4. **Info Authors** : Retrieve predefined info-queries about authors
+    - **top_authors_by_section** : Rank the authors in each section by the count of their articles and visualize the top author in each section.
+    - **/most_prolific_authors_by_section** : Rank authors in each section by word count and visualize the author with the highest word count in each section.
+    - **/count_pairs_authors_collaboration** : Identify pairs of authors and visualize the count of articles they co-authored.
+5. **Test Insert Author** : Test the DB-Normalization inserting one article with a new author in the DB, and after checking the author table
+    - **test_inserted_author** : Show the articles written by an author ordered latest first. You can check the inserted one.
+    - **/insert_new_article_with_new_author** : Insert a new article with a new author. Check if the author exists or not, taking care of the DB integrity.
 
 
 <kbd>
