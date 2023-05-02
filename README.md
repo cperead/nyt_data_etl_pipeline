@@ -513,7 +513,10 @@ At this moment, the API consists of 12 api-endpoints.
 
 # How To Test this Pipeline
 
-## Test if all articles retrieved from the NYT API, were inserted in the SQLite Database
+Currently, I have these two tests with the goal of testing the integrity of the pipeline and the normalization of the database.  
+Additional tests/information can be viewed on the running API through different endpoints
+
+## 1. Test if all articles retrieved from the NYT API, were inserted in the SQLite Database
 
 | Step |    Tool   |         ToDo                 |
 |------|-----------|----------------------------- |
@@ -524,7 +527,7 @@ At this moment, the API consists of 12 api-endpoints.
 
 <br>
 
-## Test the **Data Consistency** of the Authors in the Database <br> (Querying or Inserting )
+## 2. Test the **Data Consistency** of the Authors in the Database <br> (Querying or Inserting )
 
 ### Follw these instructions
 
