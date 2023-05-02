@@ -6,4 +6,5 @@ output_data/*.db
 0_api/__pycache__
 etl/*.ipynb
 venv_api/
+venv_mongo/
 z_comands_used.sh
