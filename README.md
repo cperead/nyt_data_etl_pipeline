@@ -548,7 +548,8 @@ Additional tests/information can be viewed on the running API through different 
 |13.| SQLite DB Viewer| Check if the inserted author "Max Mustermann" exists in the `article` and `author` tables, normally at the end. |
 
 ### This Demo Video demostrates the previous instructions.  
-Take a look for guidance.
+Take a look for guidance.  
+\* *The two endpoints names were modified and they are together in the api-enpoint `Test Insert Author` group.*
 
 [![Test NYT Data ETL Pipeline Demo Video](./images/test_author_consistency_video_button.jpg)](https://youtu.be/OaLhPuH9rxM "Test NYT Data ETL Pipeline Demo Video")
 
