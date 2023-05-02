@@ -547,7 +547,7 @@ Additional tests/information can be viewed on the running API through different 
 |12.| Browser| In the endpoint `/test_inserted_author` check if the author "Max Mustermann" exists with the dummy info entered |
 |13.| SQLite DB Viewer| Check if the inserted author "Max Mustermann" exists in the `article` and `author` tables, normally at the end. |
 
-### This Demo Video demostrates the previous instructions.  
+### This Demo Video shows the previous instructions.  
 Take a look for guidance.  
 \* *The two endpoints names were modified and they are together in the api-enpoint `Test Insert Author` group.*
 
