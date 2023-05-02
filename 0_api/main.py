@@ -35,7 +35,6 @@ app = FastAPI(
 
 database = Database("sqlite:///../output_data/nyt_db.db")
 
-
 # --------------------------------------------
 @app.on_event("startup")
 async def database_connect():
@@ -98,7 +97,6 @@ async def fetch_data():
     return  results
 
 
-
 # ============================================
 #  Query Authors
 # ============================================
@@ -157,7 +155,6 @@ async def fetch_data(author: str, word: str):
     results = await database.fetch_all(query=query)
     return  results
 
-
 # --------------------------------------------
 # Visualize the count of articles authored by [author name] in each section
 @app.get("/articles_count_by_section_by_author",
@@ -215,7 +212,6 @@ async def fetch_data(author: str):
     query = query.format(author=author)
     results = await database.fetch_all(query=query)
     return  results
-
 
 # --------------------------------------------
 # Visualize the count of articles authored by each author,
@@ -302,7 +298,6 @@ async def fetch_data():
     results = await database.fetch_all(query=query)
     return  results
 
-
 # --------------------------------------------
 # Rank authors in each section by word count
 # and visualize the author with the highest word count in each section.
@@ -348,7 +343,6 @@ async def fetch_data():
     results = await database.fetch_all(query=query)
     return  results
 
-
 # --------------------------------------------
 # Identify pairs of authors 
 # and visualize the count of articles they co-authored.
@@ -381,7 +375,6 @@ async def fetch_data():
     query = query.format()
     results = await database.fetch_all(query=query)
     return  results
-
 
 
 # ============================================
@@ -419,7 +412,6 @@ async def test_inserted(author: str):
     query = query.format(author=author)
     results = await database.fetch_all(query=query)
     return  results
-
 
 # --------------------------------------------
 #  INSERT
