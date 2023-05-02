@@ -146,7 +146,8 @@ The obtained data (many JSON files with nested fields) is flattened with MongoDB
 <br>
 
 ## 3. **Cleaning**, **Normalizing** and **Storing** Data - Pandas & SQLite Database
-The previous CSV file is read into a Dataframe. Then the `byline_original` field that contains one or more authors separated by coma and that have many useless "stop words", are cleaned and normalized.
+The previous CSV file is read into a Dataframe. 
+The `byline_original` field, which contains one or more authors separated by commas and may have several unnecessary "stop words," is cleaned and normalized.
 <br>
 
 ### Data Cleaning
