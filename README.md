@@ -540,11 +540,11 @@ Additional tests/information can be viewed on the running API through different 
 |5.| Browser| 127.0.0.1:8000 (Should work)|
 |6.| Editor | Open last JSON file. Check the last article's byline author(s) |
 |7.| SQLite DB Viewer | Check the last row of the DB, check that  this author is in the `article` and `author` tables |
-|8.| Browser| Search this author with the endpoint `test_inserted` |
-|9.| Browser| In the endpoint `test_inserted` check if, for example, the author "Max Mustermann" exists|
+|8.| Browser| Search this author with the endpoint `test_inserted_author` |
+|9.| Browser| In the endpoint `test_inserted_author` check if, for example, the author "Max Mustermann" exists|
 |10.| SQLite DB Viewer| Check if, for example, the author "Max Mustermann" exists in the `article` and `author` tables |
-|11.| Browser| Insert one dummy article written by "Max Mustermann"|
-|12.| Browser| In the endpoint `test_inserted` check if the author "Max Mustermann" exists with the dummy info entered |
+|11.| Browser| Insert one dummy article written by "Max Mustermann" using the endpoint `/insert_new_article_with_new_author`|
+|12.| Browser| In the endpoint `test_inserted_author` check if the author "Max Mustermann" exists with the dummy info entered |
 |13.| SQLite DB Viewer| Check if the inserted author "Max Mustermann" exists in the `article` and `author` tables, normally at the end. |
 
 ### This Demo Video demostrates the previous instructions.  
