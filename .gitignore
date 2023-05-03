@@ -1,21 +1,10 @@
-etl/config_vars.py
+config_vars.py
+z_comands_used.sh
 
-# input_data/*.json
-# output_data/*.csv
-# output_data/*.db
-# etl/*.ipynb
 *.json
 *.csv
 *.db
 *.ipynb
 
-# 0_api/__pycache__
-# etl/__pycache__
 **/__pycache__
-
-# venv_api/
-# venv_mongo/
-# venv_api_mongo/
 venv_*/
-
-z_comands_used.sh
