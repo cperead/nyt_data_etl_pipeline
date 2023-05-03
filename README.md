@@ -215,8 +215,7 @@ At this moment, the API consists of 12 api-endpoints.
 ## 5. Data Consumption with MongoDB (Standalone script - Not in a container)
 With this Jupyter Notebook you can explore the data retrieved from the JSON files and stored in a MongoDB collection.  
 There is no need to install MongoDB, you can run the container.  
-You can find some MongoDB queries explore the data.  
-[etl/query_mongodb.ipynb](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
+You can find some MongoDB queries explore the data. [etl/query_mongodb.ipynb](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
 
 <br><br>
 
