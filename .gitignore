@@ -8,3 +8,5 @@ z_comands_used.sh
 
 venv_*/
 **/__pycache__
+
+1_api/
