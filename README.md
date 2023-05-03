@@ -177,6 +177,13 @@ At this moment, the API consists of 12 api-endpoints.
   <img src="images/fastapi_endpoints.png">
 </kbd>
 
+
+## 5. Data Consumption - MongoDB (Standalone script)
+With this Jupyter Notebook you can explore the data retrieved from the JSON files that is in a MongoDB collection.  
+There are some MongoDB queries.
+[a link](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
+
+
 ### API endpoints
 
 1. **Status** : Checks API Status
