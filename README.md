@@ -170,7 +170,7 @@ To do the normalization a "composite-table" `article_author`  was created, and a
 <br>
 <br>
 
-## 4. Data Consumption - FastAPI
+## 4. Data Consumption with FastAPI - SQL
 At this moment, the API consists of 12 api-endpoints.
 
 <kbd>
@@ -212,7 +212,7 @@ At this moment, the API consists of 12 api-endpoints.
 
 <br><br>
 
-## 5. Data Consumption with MongoDB (Standalone script - Not in a container)
+## 5. Data Consumption with MongoDB - NoSQL <br>  (Standalone script - Not in a container)
 With this Jupyter Notebook you can explore the data retrieved from the JSON files and stored in a MongoDB collection.  
 There is no need to install MongoDB, you only need to run a background container with mongodb.  
 You can find some MongoDB queries explore the data. [etl/query_mongodb.ipynb](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
