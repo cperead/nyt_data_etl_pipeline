@@ -1,10 +1,13 @@
 config_vars.py
 z_comands_used.sh
 
-*.ipynb
 *.json
 *.csv
 *.db
+*.log
+
+*.ipynb
+!query_mongodb.ipynb
 
 venv_*/
 **/__pycache__
