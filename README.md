@@ -177,13 +177,6 @@ At this moment, the API consists of 12 api-endpoints.
   <img src="images/fastapi_endpoints.png">
 </kbd>
 
-
-## 5. Data Consumption - MongoDB (Standalone script)
-With this Jupyter Notebook you can explore the data retrieved from the JSON files that is in a MongoDB collection.  
-There are some MongoDB queries.
-[a link](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
-
-
 ### API endpoints
 
 1. **Status** : Checks API Status
@@ -205,7 +198,7 @@ There are some MongoDB queries.
 
 4. **Info Authors** : Retrieve predefined info-queries about authors
 
-    - **top_authors_by_section** : Rank the authors in each section by the count of their articles and visualize the top author in each section.
+    - **/top_authors_by_section** : Rank the authors in each section by the count of their articles and visualize the top author in each section.
 
     - **/most_prolific_authors_by_section** : Rank authors in each section by word count and visualize the author with the highest word count in each section.
 
@@ -213,11 +206,19 @@ There are some MongoDB queries.
 
 5. **Test Insert Author** : Test the DB-Normalization inserting one article with a new author in the DB, and after checking the author table
 
-    - **test_inserted_author** : Show the articles written by an author ordered latest first. You can check the inserted one.
+    - **/test_inserted_author** : Show the articles written by an author ordered latest first. You can check the inserted one.
 
     - **/insert_new_article_with_new_author** : Insert a new article with a new author. Check if the author exists or not, taking care of the DB integrity.
 
 <br><br>
+
+## 5. Data Consumption - MongoDB (Standalone script)
+With this Jupyter Notebook you can explore the data retrieved from the JSON files that is in a MongoDB collection.  
+There are some MongoDB queries.
+[etl/query_mongodb.ipynb](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
+
+<br><br>
+
 
 ******
 
