@@ -212,9 +212,9 @@ At this moment, the API consists of 12 api-endpoints.
 
 <br><br>
 
-## 5. Data Consumption - MongoDB (Standalone script)
+## 5. Data Consumption with MongoDB (Standalone script - Not in a container)
 With this Jupyter Notebook you can explore the data retrieved from the JSON files that is in a MongoDB collection.  
-There are some MongoDB queries.
+There are some MongoDB queries to view the data.
 [etl/query_mongodb.ipynb](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
 
 <br><br>
