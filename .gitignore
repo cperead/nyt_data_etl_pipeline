@@ -12,3 +12,5 @@ z_comands_used.sh
 venv_*/
 **/__pycache__
 test_new_features/
+
+1_api/
