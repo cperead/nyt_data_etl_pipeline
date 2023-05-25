@@ -170,7 +170,7 @@ To do the normalization a "composite-table" `article_author`  was created, and a
 <br>
 <br>
 
-## 4. Data Consumption with FastAPI - SQL
+## 4. SQL Data Consumption with FastAPI - SQLite
 At this moment, the API consists of 12 api-endpoints.
 
 <kbd>
@@ -212,12 +212,43 @@ At this moment, the API consists of 12 api-endpoints.
 
 <br><br>
 
-## 5. Data Consumption with MongoDB - NoSQL <br>  (Standalone script - Not in a container)
-With this Jupyter Notebook you can explore the data retrieved from the JSON files and stored in a MongoDB collection.  
-There is no need to install MongoDB, you only need to run a background container with mongodb.  
-You can find some MongoDB queries explore the data. [etl/query_mongodb.ipynb](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)
+## 5. NoSQL Data Consumption with FastAPI - MongoDB
+At this moment, the API consists of 10 api-endpoints.
+
+<kbd>
+  <img src="images/fastapi_mongodb_endpoints.png">
+</kbd>
+
+### API endpoints MongoDB
+
+1. **Status** : Checks API Status
+    - **/** : Check if the api is working.  
+
+2. **Collection Statistics** : Collection Statistics
+    - **/count_total_documents** : Retrieve the total number of documents in the collection.
+    - **/articles_count_by_section** : Count the total number of documents/articles by section name.  
+    - **/articles_count_by_type_of_material** : Count the total number of documents/articles by type of material.  
+    - **/articles_count_by_document_type** : Count the total number of documents/articles by document type.  
+    - **/automatic_distribution_count_articles_per_word_count_range** : Automatic Distribution: Number of Articles per Word Count Range. Histogram.  
+    - **/count_articles_by_range_word_count** : count the number of articles based on different ranges of word count. The articles are grouped into buckets based on their word_count field.  
+    
+
+3. **Query Authors** : Query, search author defined by the user
+    - **/list_articles_author** : Retrive the articles written by an author [search string]. Not grouped or ordered.  
+
+    - **/count_articles_by_author** : Show total number of articles/documents by author [search string].
+
+4. **Info Authors** : Retrieve predefined info-queries about authors
+
+    - **/top_authors_by_section_name** : Rank the authors in each section by the count of their articles and visualize the top author in each section.
+
+> ***There is a standalone script - Not in a container***     
+*With this Jupyter Notebook you can explore the data retrieved from the JSON files and stored in a MongoDB collection.*  
+*There is no need to install MongoDB, you only need to run a background container with mongodb.*  
+*You can find some MongoDB queries to explore the data. [etl/query_mongodb.ipynb](https://github.com/cperead/nyt_data_etl_pipeline/blob/main/etl/query_mongodb.ipynb)*
 
 <br><br>
+
 
 
 ******
