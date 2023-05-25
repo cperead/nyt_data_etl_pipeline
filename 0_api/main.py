@@ -6,8 +6,8 @@ from datetime import datetime
 # --------------------------------------------
 # Initialization, groups
 app = FastAPI(
-                title="Read NYT Archive API Results",
-                description="► Powered by FastAPI.",
+                title="Read NYT Archive API Results from a SQLite Database",
+                description="► Powered by FastAPI and SQLite.",
                 version="0.1",
                 openapi_tags=[
                                 {
@@ -50,10 +50,11 @@ async def database_disconnect():
 #  STATUS
 # ============================================    
 # Check thif if the api is working
-@app.get("/",
-        name = "Check thif if the api is working",
-        tags = ['Status']        
-        )
+@app.get(
+    "/",
+    name = "Check thif if the api is working",
+    tags = ['Status']        
+)
 async def get_index():
     return { 'API is running!': 'More info at: http://127.0.0.1:8000/docs' }
 
@@ -64,10 +65,11 @@ async def get_index():
 
 # --------------------------------------------
 # Retrieve the total number of rows per table
-@app.get("/rows_per_table",
-        name = "Total number of rows per table",
-        tags = ['Database Statistics']        
-        )
+@app.get(
+    "/rows_per_table",
+    name = "Total number of rows per table",
+    tags = ['Database Statistics']        
+)
 async def fetch_data():
     query = '''
             SELECT 
@@ -103,10 +105,11 @@ async def fetch_data():
 
 # --------------------------------------------
 # Retrieve the name of the authors containing the string entered
-@app.get("/author",
-        name = "Retrieve the names of authors that contain the [search string]",
-        tags = ['Query Authors']        
-        )
+@app.get(
+    "/author",
+    name = "Retrieve the names of authors that contain the [search string]",
+    tags = ['Query Authors']        
+)
 async def fetch_data(author: str):
     query = '''
             SELECT 
@@ -124,10 +127,11 @@ async def fetch_data(author: str):
 # --------------------------------------------
 # Visualize the count of articles authored by [author name]
 # that include the [exact word] in the 'headline_main' field
-@app.get("/articles_count_with_word_in_headline_by_author",
-        name = "Visualize the count of articles authored by [author name] that include the [exact word] in the 'headline_main' field",
-        tags = ['Query Authors']        
-        )
+@app.get(
+    "/articles_count_with_word_in_headline_by_author",
+    name = "Visualize the count of articles authored by [author name] that include the [exact word] in the 'headline_main' field",
+    tags = ['Query Authors']        
+)
 async def fetch_data(author: str, word: str):
     query = '''
             SELECT 
@@ -157,10 +161,11 @@ async def fetch_data(author: str, word: str):
 
 # --------------------------------------------
 # Visualize the count of articles authored by [author name] in each section
-@app.get("/articles_count_by_section_by_author",
-        name = "Visualize the count of articles authored by [author name] in each section",
-        tags = ['Query Authors']        
-        )
+@app.get(
+"/articles_count_by_section_by_author",
+    name = "Visualize the count of articles authored by [author name] in each section",
+    tags = ['Query Authors']        
+)
 async def fetch_data(author: str):
     query = '''
             SELECT 
@@ -186,10 +191,11 @@ async def fetch_data(author: str):
 # --------------------------------------------
 # Visualize the count of articles written by authors
 # whose name contains the [search string]
-@app.get("/articles_count_by_author",
-        name = "Visualize the count of articles written by authors whose name contains the [search string]",
-        tags = ['Query Authors']        
-        )
+@app.get(
+    "/articles_count_by_author",
+    name = "Visualize the count of articles written by authors whose name contains the [search string]",
+    tags = ['Query Authors']        
+)
 async def fetch_data(author: str):
     query = '''
             SELECT 
@@ -216,10 +222,11 @@ async def fetch_data(author: str):
 # --------------------------------------------
 # Visualize the count of articles authored by each author,
 # grouped by year and month.
-@app.get("/articles_count_by_author_per_year_month",
-        name = "Visualize the count of articles authored by [author name] string, grouped by year and month",
-        tags = ['Query Authors']        
-        )
+@app.get(
+    "/articles_count_by_author_per_year_month",
+    name = "Visualize the count of articles authored by [author name] string, grouped by year and month",
+    tags = ['Query Authors']        
+)
 async def fetch_data(author: str):
     query = '''
             SELECT 
@@ -255,10 +262,11 @@ async def fetch_data(author: str):
 # --------------------------------------------
 # Rank the authors in each section by the count of their articles
 # and visualize the top author in each section.
-@app.get("/top_authors_by_section",
-        name = "Rank the authors in each section by the count of their articles and visualize the top author in each section",
-        tags = ['Info Authors']        
-        )
+@app.get(
+    "/top_authors_by_section",
+    name = "Rank the authors in each section by the count of their articles and visualize the top author in each section",
+    tags = ['Info Authors']        
+)
 async def fetch_data():
     query = '''
             WITH section_author_count AS (
@@ -301,10 +309,11 @@ async def fetch_data():
 # --------------------------------------------
 # Rank authors in each section by word count
 # and visualize the author with the highest word count in each section.
-@app.get("/most_prolific_authors_by_section",
-        name = "Rank authors in each section by word count and visualize the author with the highest word count in each section",
-        tags = ['Info Authors']        
-        )
+@app.get(
+    "/most_prolific_authors_by_section",
+    name = "Rank authors in each section by word count and visualize the author with the highest word count in each section",
+    tags = ['Info Authors']        
+)
 async def fetch_data():
     query = '''
             WITH section_author_wordcount AS (
@@ -346,10 +355,11 @@ async def fetch_data():
 # --------------------------------------------
 # Identify pairs of authors 
 # and visualize the count of articles they co-authored.
-@app.get("/count_pairs_authors_collaboration",
-        name = "Identify pairs of authors and visualize the count of articles they co-authored",
-        tags = ['Info Authors']        
-        )
+@app.get(
+    "/count_pairs_authors_collaboration",
+    name = "Identify pairs of authors and visualize the count of articles they co-authored",
+    tags = ['Info Authors']
+)
 async def fetch_data():
     query = '''
             SELECT 
@@ -384,10 +394,11 @@ async def fetch_data():
 # --------------------------------------------
 # Show the articles written by an author ordered latest first.
 # Can check the inserted one
-@app.get("/test_inserted_author",
-        name = "Show the articles written by an author ordered latest first. You can check the inserted one",
-        tags = ['Test Insert Author']        
-        )
+@app.get(
+    "/test_inserted_author",
+    name = "Show the articles written by an author ordered latest first. You can check the inserted one",
+    tags = ['Test Insert Author']        
+)
 async def test_inserted(author: str):
     query = '''
             SELECT 
@@ -418,10 +429,11 @@ async def test_inserted(author: str):
 # --------------------------------------------
 # Insert a new article with its one author.
 # Check if the author exists or not, taking care of the DB integrity
-@app.post("/insert_new_article_with_new_author",
-        name = "Insert a new article with a new author. Check if the author exists or not, taking care of the DB integrity",
-        tags = ['Test Insert Author']        
-        )
+@app.post(
+    "/insert_new_article_with_new_author",
+    name = "Insert a new article with a new author. Check if the author exists or not, taking care of the DB integrity",
+    tags = ['Test Insert Author']        
+)
 async def insert_article(
                 abstract: str,
                 section_name: str,
